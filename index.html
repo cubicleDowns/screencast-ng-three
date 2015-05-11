@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-app="ViewerApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <base href="/"/>
+
+    <link rel="stylesheet" href="src/css/demo.css">
+    <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+
+    <!--Required for Google Closure-->
+    <script src="src/lib/base.js"></script>
+    <script src="src/lib/deps.js"></script>
+
+    <script src="src/js/config.js"></script>
+
+    <script src="src/lib/jquery-2.1.1.js"></script>
+    <script src="src/lib/three.69.js"></script>
+    <script src="src/lib/OrbitControls.js"></script>
+    <script src="src/lib/angular.js"></script>
+
+    <!--Angular code-->
+    <script src="src/js/ng/app-controller.js"></script>
+    <script src="src/js/ng/directives.js"></script>
+    <script src="src/js/ng/viewer-service.js"></script>
+    <script src="src/js/ng/message-bus.js"></script>
+    <script src="src/js/app.js"></script>
+
+    <!--THREE.js Code-->
+    <script src="src/js/three/scene.js"></script>
+    <script src="src/js/three/setup.js"></script>
+    <script src="src/js/three/util.js"></script>
+    <script src="src/js/three/camera.js"></script>
+    <script src="src/js/three/wrangler.js"></script>
+
+    <!--Import glTF files - https://www.khronos.org/gltf-->
+    <script src="src/lib/three/glTF-parser.js"></script>
+    <script src="src/lib/three/glTFLoader.js"></script>
+    <script src="src/lib/three/glTFLoaderUtils.js"></script>
+    <script src="src/lib/three/glTFAnimation.js"></script>
+</head>
+<body>
+<div ng-controller="AppController as viewer">
+    <div class="container">
+        <div class="toolbar" ng-hide="viewer.loader" stop-event>
+            <h2>Toolbar</h2><a href="#" class="close" ng-click="viewer.hideToolbar()"></a>
+
+            <div>
+                <label>Scale: <span>{{viewer.data.scale}}</span><br/>
+                    <input class="inputControls" type="range"
+                           min=0.1 max=10 step=0.1
+                           ng-model="viewer.data.scale"
+                           ng-change="viewer.scale()"/>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div id="container" class="container">
+        <canvas id="viewer" select></canvas>
+    </div>
+    <div class="container" ng-show="viewer.loader">
+        <div id="file-loader" ng-cloak>
+            <div class="loader-options">
+                <div id="gltf-loader" class="loader-options" ng-cloak>
+                    <label>
+                        <a href="https://www.khronos.org/gltf" target="_blank">glTF Loader</a>
+                        <input type="text" ng-model="viewer.data.url" placeholder="gltf json url">
+                        <input type="text" ng-model="viewer.data.name" placeholder="gltf file name" value="duck">
+                        <button ng-click="viewer.loadglTF()">LOAD glTF</button>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
