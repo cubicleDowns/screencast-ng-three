@@ -23,8 +23,8 @@ var SETUP = {
     },
     DEBUG_MODE: false,
     SAMPLES: {
-        GLTFURL : '/v2/dist/gltf/duck.json',
-        GLTFNAME: 'glTF Duck'
+        GLTFURL : '/v2/dist/gltf/duck.gltf',
+        GLTFNAME: 'duck'
     },
     'LOAD_DELAY': 1500
 };

@@ -16,11 +16,7 @@ module.exports = function(grunt) {
 
     // get all three code
     three: grunt.file.expand(
-      'src/js/three/scene.js',
-      'src/js/three/camera.js',
-      'src/js/three/setup.js',
-      'src/js/three/util.js',
-      'src/js/three/wrangler.js'
+      'src/js/three/*.js'
     ).join(' '),
 
 

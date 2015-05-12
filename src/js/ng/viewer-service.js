@@ -5,17 +5,16 @@ goog.provide('Viewer.ViewerService');
  * Service which initiates the THREE.js scene and
  *  provides methods to interact with that scene
  *
- * @param {angular.$timeout} $timeout
  * @param {Viewer.MessageBus} MessageBus
  *
  * @constructor
  * @export
  * @ngInject
  */
-Viewer.ViewerService = function($timeout, MessageBus){
-    this.timeout = $timeout;
+Viewer.ViewerService = function(MessageBus){
     this.MessageBus = MessageBus;
-    this.home = null;
+    /** @type {!Viewer.Scene} */
+    this.home;
 };
 
 /**
@@ -23,10 +22,8 @@ Viewer.ViewerService = function($timeout, MessageBus){
  * @param {!object} params
  */
 Viewer.ViewerService.prototype.init = function (params){
-    this.home = new Viewer.Scene(params);
-    this.timeout(function(){
-        this.MessageBus.trigger('appReady');
-    }.bind(this), SETUP.LOAD_DELAY);
+    this.home = new Viewer.Scene(params, this.MessageBus);
+    this.MessageBus.trigger('appReady');
     this.animate();
 };
 
@@ -59,7 +56,7 @@ Viewer.ViewerService.prototype.makeSelection = function (mouse) {
         intersected = intersected[0];
         this.MessageBus.trigger('objectSelected', intersected[0])
     } else {
-        intersected = null;
+        intersected = false;
         console.info('No intersection detected');
     }
     return intersected;
@@ -74,7 +71,7 @@ Viewer.ViewerService.prototype.loadGLTF = function (info){
 };
 
 /**
- * @param {!number} s
+ * @param {number} s
  */
 Viewer.ViewerService.prototype.scale = function(s) {
     this.home.wrangler.currentModel.scale.set(s, s, s);

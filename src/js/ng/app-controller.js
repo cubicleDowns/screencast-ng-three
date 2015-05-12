@@ -1,18 +1,22 @@
 'use strict';
 goog.provide('Viewer.AppController');
+//goog.require('Viewer.Scene');
+
 
 /**
  *
  * @param {angular.Scope} $scope
+ * @param {Viewer.MessageBus} MessageBus
  * @param {Viewer.ViewerService} ViewerService
  *
  * @constructor
  * @export
  * @ngInject
  */
-Viewer.AppController = function ($scope, ViewerService) {
+Viewer.AppController = function ($scope, MessageBus, ViewerService) {
 
     this.scope = $scope;
+    this.MessageBus = MessageBus;
     this.ViewerService = ViewerService;
 
     /**
@@ -25,9 +29,11 @@ Viewer.AppController = function ($scope, ViewerService) {
      */
     this.data = {
         'name': 'duck',
-        'url': 'dist/gltf/duck.json',
+        'url': 'dist/gltf/duck.gltf ',
         'scale': "1"
     };
+
+    this.status = "Not loaded";
 
     this.init();
 };
@@ -37,8 +43,17 @@ Viewer.AppController.prototype.init = function () {
         canvasId: 'viewer',
         containerId: 'container'
     });
+
+    this.listeners();
 };
 
+
+Viewer.AppController.prototype.listeners = function () {
+
+    this.scope.$on('fileAdded', function (e) {
+        this.status = this.MessageBus.message['fileAdded'];
+    }.bind(this));
+};
 
 /**
  * @export

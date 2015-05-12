@@ -1,10 +1,15 @@
-goog.provide('Viewer.Scene');
+//goog.provide('Viewer.Scene');
 //goog.require('Viewer.Util');
 //goog.require('Viewer.Wrangler');
 //goog.require('Viewer.Setup');
 //goog.require('Viewer.Cameras');
 
-Viewer.Scene = function (params) {
+/**
+ * @param {Object} params
+ * @param {Viewer.MessageBus} MessageBus
+ * @constructor
+ */
+Viewer.Scene = function (params, MessageBus) {
 
     this.parentContainer = $('#' + params.containerId);
     this.container = document.getElementById(params.canvasId);
@@ -23,19 +28,22 @@ Viewer.Scene = function (params) {
     this.controls = null;
     this.raycaster = null;
 
-    this.init();
+    this.init(MessageBus);
 
 };
 
 Viewer.Scene.prototype = {
 
-    init: function () {
+    /**
+     * @param {Viewer.MessageBus} MessageBus
+     */
+    init: function (MessageBus) {
 
-    var params = {context: this};
+        var params = {context: this};
 
         this.scene = new THREE.Scene();
         this.renderer = new THREE.WebGLRenderer({canvas: this.container, antialias: true});
-        this.wrangler = new Viewer.Wrangler(params);
+        this.wrangler = new Viewer.Wrangler(params, MessageBus);
         this.setup = new Viewer.Setup(params);
         this.cameras = new Viewer.Cameras(params);
         this.controls = new THREE.OrbitControls( this.cameras.liveCam, this.container );
@@ -58,9 +66,6 @@ Viewer.Scene.prototype = {
             }.bind(this), 100);
         }.bind(this), false );
 
-        $(document).on('mediaready', function (e) {
-            this.scene.add(e.mesh);
-        }.bind(this));
     },
 
     /**

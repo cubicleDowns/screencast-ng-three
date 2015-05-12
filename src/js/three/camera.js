@@ -27,6 +27,7 @@ Viewer.Cameras = function (params) {
     this.PERP_NEAR_PLANE = SETUP.CAM.PERP_NEAR_PLANE || 1;
     this.PERP_FAR_PLANE = SETUP.CAM.PERP_FAR_PLANE || 10000;
 
+    // Orthographic camera setup.
     this.orthCam = null;
     this.ORTH_NEAR_PLANE = SETUP.CAM.ORTH_NEAR_PLANE || -1000;
     this.ORTH_FAR_PLANE = SETUP.CAM.ORTH_FAR_PLANE || 1000;
@@ -66,7 +67,6 @@ Viewer.Cameras.prototype = {
         this.orthoCam.name = 'ortho';
 
     this.liveCam = this.orthoCam;
-    // console.log('init orth cam');
   },
 
     /**

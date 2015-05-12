@@ -56,7 +56,6 @@ Viewer.Setup.prototype = {
     setupRenderer: function () {
         this.context.renderer.setSize(this.WIDTH, this.HEIGHT);
         this.context.renderer.setViewport(0, 0, this.WIDTH, this.HEIGHT);
-        this.context.jqContainer.fadeIn();
     },
 
     /**
