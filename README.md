@@ -22,6 +22,7 @@ http://www.tempt3d.com/screencast/
 * THREE.js: http://threejs.org/
 * Angular: https://angularjs.org/
 * MeetUp video:  https://vimeo.com/114387650
+* glTF: https://www.khronos.org/gltf
 
 ### More Extensive Angular/THREE.js example
 * https://github.com/cubicleDowns/ng-three-viewer
