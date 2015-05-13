@@ -2,7 +2,7 @@ screencast-ng-three
 ===============
 
 ## Overview
-Code for the O'Reilly screencast found here: http://www.oreilly.com/pub/au/6456
+Code for the O'Reilly screencast: http://www.oreilly.com/pub/au/6456
 
 CHROME ONLY (for now)
 
